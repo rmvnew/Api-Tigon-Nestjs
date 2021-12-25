@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { ClientsModule } from './clients/clients.module';
-import { AddressModule } from './address/address.module';
+import { AddressModule } from './modules/address/address.module';
+import { ClientsModule } from './modules/clients/clients.module';
+import { OrderModule } from './modules/order/order.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AddressModule } from './address/address.module';
   }),
     ClientsModule,
     AddressModule,
+    OrderModule,
     
   ],
   controllers: [],

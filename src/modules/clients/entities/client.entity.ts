@@ -1,4 +1,4 @@
-import { Address } from "src/address/entities/address.entity"
+import { Address } from "src/modules/address/entities/address.entity"
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 
@@ -16,6 +16,9 @@ export class Client {
 
     @Column()
     email:string
+
+    @Column()
+    phone:string
 
     @Column()
     isActive: boolean

@@ -1,39 +1,47 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator"
-import { UserProfile } from "src/helper/Enums"
 
 
+export class CreateAddressDto {
 
-export class CreateUserDto {
 
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    @MaxLength(100)
-    @MinLength(5)
-    name: string
+    zip_code: string
 
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    email: string
+    state: string
 
-    @IsOptional()
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    password: string
+    city: string
 
-    @IsOptional()
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    profile: string
+    neighborhood: string
 
     @ApiProperty()
     @IsNotEmpty()
+    @IsString()
+    street: string
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    number: string
+
+    @ApiProperty()
     @IsBoolean()
     isActive: boolean
+
+    // @ApiProperty()
+    // @IsOptional()
+    // client:Client
 
     @IsOptional()
     @IsString()
@@ -42,5 +50,4 @@ export class CreateUserDto {
     @IsOptional()
     @IsString()
     updateAt: string
-
 }

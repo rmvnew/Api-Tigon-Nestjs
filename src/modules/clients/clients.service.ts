@@ -1,12 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginate, Pagination } from 'nestjs-typeorm-paginate';
-import { AddressService } from 'src/address/address.service';
-import { CreateAddressDto } from 'src/address/dto/create-address.dto';
-import { Address } from 'src/address/entities/address.entity';
 import { SortingType } from 'src/helper/Enums';
 import { Utils } from 'src/helper/Utils';
 import { Repository } from 'typeorm';
+import { AddressService } from '../address/address.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { FilterClientPaginate } from './dto/filter.client.paginate';
 import { UpdateClientDto } from './dto/update-client.dto';

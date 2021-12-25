@@ -1,48 +1,38 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator"
-import { Client } from "src/clients/entities/client.entity"
 
 
-export class CreateAddressDto {
 
-
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    zip_code: string
+export class CreateUserDto {
 
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    state: string
+    @MaxLength(100)
+    @MinLength(5)
+    name: string
 
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    city: string
+    email: string
 
+    @IsOptional()
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    neighborhood: string
+    password: string
 
+    @IsOptional()
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    street: string
+    profile: string
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsString()
-    number: string
-
-    @ApiProperty()
     @IsBoolean()
     isActive: boolean
-
-    // @ApiProperty()
-    // @IsOptional()
-    // client:Client
 
     @IsOptional()
     @IsString()
@@ -51,4 +41,5 @@ export class CreateAddressDto {
     @IsOptional()
     @IsString()
     updateAt: string
+
 }
