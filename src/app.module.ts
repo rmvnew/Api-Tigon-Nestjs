@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ClientsModule } from './clients/clients.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ClientsModule } from './clients/clients.module';
       synchronize: true
   }),
     ClientsModule,
+    AddressModule,
     
   ],
   controllers: [],

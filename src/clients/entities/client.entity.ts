@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Address } from "src/address/entities/address.entity"
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 
 @Entity('Clients')
@@ -24,4 +25,8 @@ export class Client {
 
     @UpdateDateColumn()
     updateAt: string
+
+    @OneToOne(() => Address, address => address.client,{eager:true})
+    @JoinColumn()
+    address : Address
 }

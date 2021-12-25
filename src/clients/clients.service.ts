@@ -1,6 +1,9 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { AddressService } from 'src/address/address.service';
+import { CreateAddressDto } from 'src/address/dto/create-address.dto';
+import { Address } from 'src/address/entities/address.entity';
 import { SortingType } from 'src/helper/Enums';
 import { Utils } from 'src/helper/Utils';
 import { Repository } from 'typeorm';
@@ -14,7 +17,9 @@ export class ClientsService {
 
   constructor(
     @InjectRepository(Client)
-    private readonly clientRepository: Repository<Client>
+    private readonly clientRepository: Repository<Client>,
+    private readonly addressService:AddressService,
+      
   ) { }
 
   async create(createClientDto: CreateClientDto): Promise<Client> {
@@ -23,11 +28,17 @@ export class ClientsService {
     client.name = Utils.getInstance().getValidName(client.name)
     const isRegistered = await this.getByName(client.name)
 
+    // console.log(await this.addressService.create(client.address))
+    client.address = await this.addressService.create(client.address)
+          
+
     if (isRegistered) {
       throw new BadRequestException('O cliente já esta registrado!!')
     }
 
+       
     return this.clientRepository.save(client)
+    
 
   }
 
@@ -38,7 +49,9 @@ export class ClientsService {
   async findAll(filter: FilterClientPaginate): Promise<Pagination<Client>> {
     const { name, orderBy, sort } = filter
     const queryBuilder = this.clientRepository.createQueryBuilder('inf')
-
+    .leftJoinAndSelect('inf.address','adress')
+    
+    
     if (name) {
       return paginate<Client>(
         queryBuilder.where('inf.name like :name', { name: `%${name.toUpperCase()}%` }), filter
