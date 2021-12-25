@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import {
   paginate,
@@ -36,7 +36,7 @@ export class UserService {
     const isRegistered = await this.getByName(user.name)
 
     if (isRegistered) {
-      throw new NotFoundException('Usuário já cadastrado!!')
+      throw new BadRequestException('Usuário já cadastrado!!')
     }
 
     user.password = await Utils.getInstance().encryptPassword(user.password)
