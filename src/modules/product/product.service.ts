@@ -37,6 +37,7 @@ export class ProductService {
     const { orderBy, sort } = filter
     const queryBuilder = this.prodRepository.createQueryBuilder('inf')
       .leftJoinAndSelect('inf.order', 'order')
+      .leftJoinAndSelect('inf.pos','pos')
 
 
     if (orderBy == SortingType.ID) {

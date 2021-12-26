@@ -1,5 +1,6 @@
 import { Order } from "src/modules/order/entities/order.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { PartsOrService } from "src/modules/parts-or-service/entities/parts-or-service.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 
@@ -38,5 +39,8 @@ export class Product {
 
     @ManyToOne(() => Order, order => order.product)
     order:Order
+
+    @OneToMany(() => PartsOrService, pos => pos.product)
+    pos : PartsOrService
 
 }
