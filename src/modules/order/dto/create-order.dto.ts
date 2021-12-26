@@ -37,11 +37,11 @@ export class CreateOrderDto {
     @IsOptional()
     finalDate: string
 
-    @ApiProperty()
+    @IsString()
     @IsOptional()
     createAt: string
 
-    @ApiProperty()
+    @IsString()
     @IsOptional()
     updateAt: string
 

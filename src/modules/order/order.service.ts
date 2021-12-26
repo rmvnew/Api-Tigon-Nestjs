@@ -30,13 +30,16 @@ export class OrderService {
     order.client = client
     order.user = user
 
+    console.log(order)
+
     return this.orderRepository.save(order)
   }
 
   async findAll(filter: FilterOrder): Promise<Pagination<Order>> {
     const { orderBy, sort } = filter
     const queryBuilder = this.orderRepository.createQueryBuilder('inf')
-      .leftJoinAndSelect('inf.address', 'adress')
+      .leftJoinAndSelect('inf.user', 'user')
+      .leftJoinAndSelect('inf.client','client')
 
     if (orderBy == SortingType.ID) {
 
