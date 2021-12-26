@@ -1,26 +1,73 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { SortingType } from 'src/helper/Enums';
+import { Repository } from 'typeorm';
+import { ClientsService } from '../clients/clients.service';
+import { Client } from '../clients/entities/client.entity';
+import { UserService } from '../user/user.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { FilterOrder } from './dto/filter.order.paginate';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Order } from './entities/order.entity';
 
 @Injectable()
 export class OrderService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+
+  constructor(
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
+    private clientService: ClientsService,
+    private userService: UserService
+  ) { }
+
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+
+    const { id_client, id_user } = createOrderDto
+    const order = this.orderRepository.create(createOrderDto)
+    const client = await this.clientService.findOne(id_client)
+    const user = await this.userService.findOne(id_user)
+    order.client = client
+    order.user = user
+
+    return this.orderRepository.save(order)
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll(filter: FilterOrder): Promise<Pagination<Order>> {
+    const { orderBy, sort } = filter
+    const queryBuilder = this.orderRepository.createQueryBuilder('inf')
+      .leftJoinAndSelect('inf.address', 'adress')
+
+    if (orderBy == SortingType.ID) {
+
+      queryBuilder.orderBy('inf.id_order', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
+
+    } else {
+
+      queryBuilder.orderBy('inf.createAt', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
+
+    }
+
+    return paginate<Order>(queryBuilder, filter)
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: number) {
+    return this.orderRepository.findOne({ id_order: id })
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async findClientByName(name: string): Promise<Client> {
+    return await this.clientService.getByName(name)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
+
+    const order = await this.orderRepository.preload({
+      id_order: id,
+      ...updateOrderDto
+    })
+
+    return this.orderRepository.save(order)
   }
+
+
 }

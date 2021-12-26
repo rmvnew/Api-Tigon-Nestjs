@@ -1,5 +1,6 @@
 import { UserProfile } from "src/helper/Enums";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Order } from "src/modules/order/entities/order.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 
@@ -29,5 +30,8 @@ export class User {
 
     @UpdateDateColumn()
     updateAt: string
+
+    @OneToMany(() => Order, order => order.user)
+    order:Order[]
 
 }

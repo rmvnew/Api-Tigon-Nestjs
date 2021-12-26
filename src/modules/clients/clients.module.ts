@@ -11,6 +11,7 @@ import { AddressModule } from '../address/address.module';
     AddressModule
   ],
   controllers: [ClientsController],
-  providers: [ClientsService]
+  providers: [ClientsService],
+  exports:[ClientsService]
 })
 export class ClientsModule {}
