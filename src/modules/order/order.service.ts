@@ -40,6 +40,7 @@ export class OrderService {
     const queryBuilder = this.orderRepository.createQueryBuilder('inf')
       .leftJoinAndSelect('inf.user', 'user')
       .leftJoinAndSelect('inf.client','client')
+      .leftJoinAndSelect('inf.product','product')
 
     if (orderBy == SortingType.ID) {
 

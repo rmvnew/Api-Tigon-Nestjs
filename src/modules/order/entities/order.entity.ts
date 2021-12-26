@@ -1,6 +1,7 @@
 import { Client } from "src/modules/clients/entities/client.entity";
+import { Product } from "src/modules/product/entities/product.entity";
 import { User } from "src/modules/user/entities/user.entity";
-import { Column, CreateDateColumn, Double, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Double, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity('order')
@@ -35,5 +36,8 @@ export class Order {
     
     @ManyToOne(() => Client, client => client.order)
     client:Client
+
+    @OneToMany(() => Product, product => product.order)
+    product:Product
 
 }
