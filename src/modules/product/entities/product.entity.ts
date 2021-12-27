@@ -11,6 +11,9 @@ export class Product {
     id_product: number
 
     @Column()
+    name:string
+
+    @Column()
     brand: string
 
     @Column()

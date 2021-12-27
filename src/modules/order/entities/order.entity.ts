@@ -4,7 +4,7 @@ import { User } from "src/modules/user/entities/user.entity";
 import { Column, CreateDateColumn, Double, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
-@Entity('order')
+@Entity('order_of_service')
 export class Order {
 
     @PrimaryGeneratedColumn()

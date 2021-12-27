@@ -44,10 +44,14 @@ export class ProductService {
 
       queryBuilder.orderBy('inf.id_order', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
 
-    } else {
+    } else if(orderBy == SortingType.DATE){
 
       queryBuilder.orderBy('inf.createAt', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
 
+    }else{
+
+      queryBuilder.orderBy('inf.name', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
+      
     }
 
     return paginate<Product>(queryBuilder, filter)

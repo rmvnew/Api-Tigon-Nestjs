@@ -4,8 +4,8 @@ import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-val
 
 export class CreateOrderDto {
 
-    @ApiProperty()
-    @IsNotEmpty()
+    // @ApiProperty()
+    @IsOptional()
     @IsString()
     number_os: string
 
@@ -23,7 +23,7 @@ export class CreateOrderDto {
     @IsNotEmpty()
     @IsNumber()
     id_client: number
-    
+
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()

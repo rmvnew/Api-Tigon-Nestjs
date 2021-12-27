@@ -7,6 +7,11 @@ export class CreateProductDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
+    name: string
+    
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
     brand: string
 
     @ApiProperty()
