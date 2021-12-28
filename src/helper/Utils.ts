@@ -51,10 +51,17 @@ export class Utils {
         return regex.test(value)
     }
 
-    async encryptPassword(pass: string):Promise<string> {
+    async encryptPassword(pass: string): Promise<string> {
         const saltOrRounds = 10;
         const newPass = await bcrypt.hash(pass, saltOrRounds)
         return newPass
+    }
+
+    getDate(date: string): Date {
+
+        let newData = date.replace(/(\d+[/])(\d+[/])/, '$2$1');
+        return new Date(newData);
+
     }
 
 }

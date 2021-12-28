@@ -19,11 +19,11 @@ export class Order {
     @Column()
     isActive: boolean
 
-    @Column()
-    initialDate:string
+    @Column({nullable:true})
+    initialDate:Date
 
-    @Column()
-    finalDate:string
+    @Column({nullable:true})
+    finalDate:Date
 
     @CreateDateColumn()
     createAt: string

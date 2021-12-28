@@ -34,24 +34,36 @@ export class ProductService {
   }
 
   async findAll(filter: FilterProduct): Promise<Pagination<Product>> {
-    const { orderBy, sort } = filter
+    const { orderBy, sort, serial } = filter
     const queryBuilder = this.prodRepository.createQueryBuilder('inf')
       .leftJoinAndSelect('inf.order', 'order')
-      .leftJoinAndSelect('inf.pos','pos')
+      .leftJoinAndSelect('inf.pos', 'pos')
+
+
+
+
+    if (serial) {
+      const onlyQuery = this.prodRepository.createQueryBuilder('simple')
+
+      return await paginate<Product>(
+        onlyQuery.where('simple.serial = :serial', { serial: serial }), filter
+      )
+
+    }
 
 
     if (orderBy == SortingType.ID) {
 
       queryBuilder.orderBy('inf.id_order', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
 
-    } else if(orderBy == SortingType.DATE){
+    } else if (orderBy == SortingType.DATE) {
 
       queryBuilder.orderBy('inf.createAt', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
 
-    }else{
+    } else {
 
       queryBuilder.orderBy('inf.name', `${sort === 'DESC' ? 'DESC' : 'ASC'}`)
-      
+
     }
 
     return paginate<Product>(queryBuilder, filter)

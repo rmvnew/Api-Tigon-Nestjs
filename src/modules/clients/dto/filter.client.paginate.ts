@@ -24,13 +24,15 @@ export class FilterClientPaginate{
     sort: string
 
     @IsOptional()
+    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
+    orderBy: string
+
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
     name: string
 
-    @IsOptional()
-    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
-    orderBy: string
+    
 
 
 }

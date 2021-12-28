@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { SortingType } from 'src/helper/Enums';
+import { Utils } from 'src/helper/Utils';
 import { Repository } from 'typeorm';
 import { ClientsService } from '../clients/clients.service';
 import { Client } from '../clients/entities/client.entity';
@@ -23,7 +24,7 @@ export class OrderService {
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
 
-    const { id_client, id_user } = createOrderDto
+    const { id_client, id_user,initialDate } = createOrderDto
     const order = this.orderRepository.create(createOrderDto)
 
     const query = await this.orderRepository.createQueryBuilder('inf')
@@ -44,6 +45,7 @@ export class OrderService {
     const user = await this.userService.findOne(id_user)
     order.client = client
     order.user = user
+    order.initialDate = Utils.getInstance().getDate(initialDate)
 
     console.log(order)
 

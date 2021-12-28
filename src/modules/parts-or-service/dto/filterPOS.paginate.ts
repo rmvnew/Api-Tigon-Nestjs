@@ -25,6 +25,6 @@ export class FilterPOS {
     @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
-    serial: string
+    id_product: string
 
 }

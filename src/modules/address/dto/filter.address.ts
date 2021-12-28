@@ -24,13 +24,14 @@ export class FilterAddress{
     sort: string
 
     @IsOptional()
+    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
+    orderBy: string
+
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
     city: string
 
-    @IsOptional()
-    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
-    orderBy: string
-
+    
 
 }

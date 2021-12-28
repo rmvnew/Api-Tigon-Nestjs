@@ -38,10 +38,17 @@ export class PartsOrServiceService {
   }
 
   async findAll(filter: FilterPOS): Promise<Pagination<PartsOrService>> {
-    const { orderBy, sort } = filter
+    const { orderBy, sort, id_product } = filter
     const queryBuilder = this.posRepository.createQueryBuilder('inf')
       .leftJoinAndSelect('inf.product', 'product')
 
+    if(id_product){
+      const onlyQuery = this.posRepository.createQueryBuilder('simple')
+
+      return await paginate<PartsOrService>(
+        onlyQuery.where('simple.productIdProduct = :productIdProduct', {productIdProduct : id_product }), filter
+      )
+    }  
 
     if (orderBy == SortingType.ID) {
 

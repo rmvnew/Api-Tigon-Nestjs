@@ -25,6 +25,11 @@ export class FilterOrder {
     sort: string
 
     @IsOptional()
+    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
+    orderBy: string
+
+
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
     number_os: string
@@ -34,9 +39,6 @@ export class FilterOrder {
     @ApiProperty({ required: false })
     name_client: string
 
-    @IsOptional()
-    @ApiProperty({ required: true, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
-    orderBy: string
-
+    
 
 }
