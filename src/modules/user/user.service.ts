@@ -80,6 +80,10 @@ export class UserService {
     return this.userRepository.findOne({ idUser: id })
   }
 
+  async findByEmail(email: string){
+    return await this.userRepository.findOne({email:email})
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
 
     const user = await this.userRepository.preload({

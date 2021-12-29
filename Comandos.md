@@ -34,5 +34,13 @@ npm i bcrypt
 
 //Instalação do TypeOrm paginate
 npm i nestjs-typeorm-paginate
+
+//Instalação do Passport
+npm install --save @nestjs/passport passport passport-local
+npm install --save-dev @types/passport-local
+
+//Instalação do jwt
+npm install --save @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
 ~~~
 

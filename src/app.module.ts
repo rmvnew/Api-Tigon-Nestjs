@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -21,15 +22,16 @@ import { PartsOrServiceModule } from './modules/parts-or-service/parts-or-servic
       database: process.env.DATABASE,
       autoLoadEntities: true,
       synchronize: true
-  }),
+    }),
     ClientsModule,
     AddressModule,
     OrderModule,
     ProductModule,
     PartsOrServiceModule,
-    
+    AuthModule,
+
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

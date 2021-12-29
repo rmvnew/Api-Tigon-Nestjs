@@ -59,7 +59,7 @@ export class OrderService {
   async findAll(filter: FilterOrder): Promise<Pagination<Order>> {
     const { orderBy, sort } = filter
     const queryBuilder = this.orderRepository.createQueryBuilder('inf')
-      .leftJoinAndSelect('inf.user', 'user')
+      .leftJoinAndSelect('inf.user', 'user.name')
       .leftJoinAndSelect('inf.client', 'client')
       .leftJoinAndSelect('inf.product', 'product')
 
